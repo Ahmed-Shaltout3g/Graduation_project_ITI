@@ -1,0 +1,45 @@
+.reviewsSection {
+  padding: 4rem 0;
+  background-color: #0A192F;
+  color: #E6F1FF;
+}
+
+.reviewCard {
+  background-color: hsl(218, 58%, 16%);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 0.3s;
+}
+
+.reviewCard:hover {
+  border-color: #64FFDA;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.materialSymbol {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  font-size: 24px;
+}
+
+.textSuccess {
+  color: #64FFDA;
+}
+
+.textSecondary {
+  color: #8892B0;
+}
+
+.textLight {
+  color: #E6F1FF;
+}
+
+.textSecondary {
+  color: #8892B0;
+}

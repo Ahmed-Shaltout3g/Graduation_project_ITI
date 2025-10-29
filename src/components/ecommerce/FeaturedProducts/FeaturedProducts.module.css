@@ -1,0 +1,66 @@
+.wrapper {
+  position: relative;
+  background-color: #0a192f;
+  overflow: hidden;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.bgDecor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+
+
+.glow1,
+.glow2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+
+.glow1 {
+  top: -25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  background-color: #64ffda;
+  opacity: 0.05;
+}
+
+.glow2 {
+  bottom: -10%;
+  right: -10%;
+  width: 33%;
+  height: 33%;
+  background-color: #00c2ff;
+  opacity: 0.1;
+}
+
+.section {
+  background-color: #0a192f;
+  position: relative;
+}
+
+.card {
+  background-color: rgba(15, 26, 36, 0.9);
+  border: 1px solid rgba(100, 255, 218, 0.15);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.25);
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+}

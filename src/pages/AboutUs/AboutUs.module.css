@@ -1,0 +1,179 @@
+.page {
+  color: white;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+/* Common Container (applies to all major sections) */
+.container80 {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* Hero */
+.hero {
+  background: linear-gradient(#09182f, #0a192f87),
+    url("https://lh3.googleusercontent.com/aida-public/AB6AXuADByiyTY3XQgzu1uAR7sHnUqHHn1oCBw9dJDxWOAKH3UdkXqZr64GPxGd3nxk0EYkEpTxW4vMgrj7DwgNTblB81SAfjwgU2E3_jzdO4lviqdUJU67xo6M-EnJBW0w_UIpqsMhH8jMa2YHkzgMGMqgkft3MXEUKJ09xCyZARP26fcLVwa4wBSUGfMT7vww8fP-VrOnfUhjFh0ot9TeqaHfdkm6zu9gDEY8-Fg8SV0ynqq3r5ajfYu9bB_tkMCotdyNVqi2di1blt6Hf")
+      center/cover no-repeat;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 3rem 0;
+}
+.heroContent {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.heroContent h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+.heroContent h2 {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+.primaryBtn {
+  background-color: #27e7dd !important;
+  color: #112221 !important;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  border: none !important;
+}
+
+/* Section */
+.section {
+  padding: 4rem 0;
+  width: 80%;
+  margin: 0 auto;
+}
+.section h2 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.section p {
+  color: #93c8c5;
+}
+
+/* Cards */
+.card,
+.valueCard {
+  background-color: #0A192F !important;
+  border: 1px solid #346563 !important;
+  padding: 1rem;
+  color: white;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+.icon {
+  color: #27e7dd;
+  font-size: 24px;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-left: 1.5px solid #346563;
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+.timelineItem {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.timelineTitle {
+  font-weight: 600;
+}
+.timelineDate {
+  color: #93c8c5;
+}
+
+/* Team */
+.teamGrid {
+  margin-top: 2rem;
+}
+.teamCard {
+  background-color: #0A192F;
+  border: 1px solid #346563;
+  border-radius: 8px;
+  text-align: center;
+  padding: 1.5rem;
+}
+.teamCard img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.teamCard h4 {
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.teamCard p {
+  color: #93c8c5;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid #244745;
+  padding: 3rem 0;
+  color: #93c8c5;
+  width: 80%;
+  margin: 0 auto;
+}
+.footerTop {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+.footerTop h2 {
+  color: white;
+  font-weight: 700;
+}
+.footerTop a {
+  color: #93c8c5;
+  text-decoration: none;
+}
+.footerTop a:hover {
+  color: #27e7dd;
+}
+.footerBottom {
+  border-top: 1px solid #244745;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+.footerBottom a {
+  color: #93c8c5;
+  text-decoration: none;
+}
+.footerBottom a:hover {
+  color: #27e7dd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header, .heroContent, .section, .footer {
+    width: 90%;
+  }
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+  .navLinks {
+    display: none;
+  }
+  .mobileOnly {
+    display: flex;
+  }
+}

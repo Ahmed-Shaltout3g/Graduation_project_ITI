@@ -1,26 +1,19 @@
-
-
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
-
-body {
+.hero-section {
   background-color: #0f1a24;
-  color: white;
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
   position: relative;
-  min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
+  min-height: 90vh;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .background-container {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  pointer-events: none; 
 }
 
+/* شبكة الخلفية */
 .grid-pattern {
   position: absolute;
   inset: 0;
