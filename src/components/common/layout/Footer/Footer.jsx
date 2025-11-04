@@ -13,7 +13,7 @@ const Footer = () => {
                     <Col lg={4} md={6} className="mb-4">
                         <div className={styles["footer-logo"]}>
                             <MdSchool size={28} className="me-2 text-info" />
-                            <span>UniSupply</span>
+                            <span>Eagrely</span>
                         </div>
                         <p>Connecting the future, remotely.</p>
                         <div className={styles["footer-socials"]}>
