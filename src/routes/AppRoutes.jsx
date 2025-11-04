@@ -9,6 +9,7 @@ import Layout from "../layout/Layout";
 import AboutUs from "@pages/AboutUs/AboutUs";
 import Home from "@pages/Home/Home";
 import Register from "@pages/Register/Register";
+import ProductsPage from "../pages/MarketPlace/ProductsPage";
 
 
 
@@ -26,6 +27,7 @@ export default function AppRoutes() {
 
                     <Route path="/register" element={<Register />} />
                     <Route path="*" element={<NotFound />} />
+                    <Route path="/marketplace" element={ <ProductsPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

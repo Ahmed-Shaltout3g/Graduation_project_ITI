@@ -13,7 +13,7 @@ export default function Header() {
             <Container fluid>
                 <Navbar.Brand as={Link} to="/" className="d-flex align-items-center fw-bold text-info">
                     <MdSchool size={28} className="me-2 text-info" />
-                    UniSupply
+                    Eagrely
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="main-navbar">
@@ -23,7 +23,8 @@ export default function Header() {
                 <Navbar.Collapse id="main-navbar">
                     <Nav className="mx-auto">
                         <Nav.Link as={Link} to="/" className="text-light mx-2">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/product" className="text-light mx-2">Products</Nav.Link>
+                        <Nav.Link as={Link} to="/marketplace" className="text-light mx-2">Marketplace</Nav.Link>
+                        {/* <Nav.Link as={Link} to="/product" className="text-light mx-2">Products</Nav.Link> */}
                         <Nav.Link as={Link} to="/aboutus" className="text-light mx-2">About Us</Nav.Link>
                     </Nav>
 
