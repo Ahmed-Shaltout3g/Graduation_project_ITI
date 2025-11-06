@@ -1,0 +1,160 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #030c20;
+  padding: 1.5rem;
+  border-radius: 10px;
+  color: #fff;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Title */
+.formTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #29e3da;
+  margin-bottom: 15px;
+}
+
+/* Form fields */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #b5bfc4;
+}
+
+.input,
+.textarea,
+.select {
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #0b1222;
+  color: #e6edf3;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: #29e3da;
+  outline: none;
+}
+
+.textarea {
+  resize: none;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 3px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.cancelBtn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.cancelBtn:hover {
+  background-color: #5a6268;
+}
+
+.saveBtn {
+  background-color: #29e3da;
+  color: #0f1a24;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.saveBtn:hover {
+  background-color: #24c7bc;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .formContainer {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .formTitle {
+    font-size: 1.3rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cancelBtn,
+  .saveBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 0.75rem;
+  }
+
+  .formTitle {
+    font-size: 1.2rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  .input,
+  .textarea,
+  .select {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+.previewImage {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}

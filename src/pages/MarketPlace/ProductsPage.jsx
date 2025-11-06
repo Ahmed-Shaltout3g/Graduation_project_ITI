@@ -12,8 +12,8 @@ const ProductsPage = () => {
     <div className="min-vh-100 d-flex flex-column">
 
 
-    
-      <Container className="text-center mt-5">
+
+      <Container fluid className="text-center mt-5">
         <h1 className="fw-bold display-5">Our Products</h1>
         <p className=" mx-auto" style={{ maxWidth: "600px" }}>
           Explore our line of innovative, high-quality products designed to enhance your
@@ -23,7 +23,7 @@ const ProductsPage = () => {
 
 
       <Container fluid className="py-5">
-        <Row className="justify-content-center">
+        <Row >
           {/* Sidebar */}
           <Col md={3} className="mb-4">
             <Card bg="transparent" text="light" className="border-info">
@@ -35,7 +35,7 @@ const ProductsPage = () => {
                   </Button>
                 </div>
 
-            
+
                 <div className="mb-4">
                   <h6 className="fw-semibold">Category</h6>
                   {categories.map((item, i) => (
@@ -49,7 +49,7 @@ const ProductsPage = () => {
                   ))}
                 </div>
 
-          
+
                 <div className="border-top border-info pt-3 mb-4">
                   <h6 className="fw-semibold">Price Range</h6>
                   <Form.Range min={0} max={5000} defaultValue={2500} />
@@ -64,7 +64,7 @@ const ProductsPage = () => {
                   <Form.Check type="checkbox" label="In Stock" defaultChecked />
                 </div>
 
-            
+
                 <div className="border-top border-info pt-3 mb-4">
                   <h6 className="fw-semibold">Features</h6>
                   {features.map((feature, i) => (
@@ -79,10 +79,10 @@ const ProductsPage = () => {
             </Card>
           </Col>
 
-      
-        
-          <Col md={8}>
-          <FeaturedProducts title="Shop by Category" products={categories} bgColor='transparent' />
+
+
+          <Col md={9}>
+            <FeaturedProducts title="Shop by Category" products={categories} bgColor='transparent' />
           </Col>
 
         </Row>
