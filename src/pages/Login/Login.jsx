@@ -17,21 +17,33 @@ const Login = () => {
 
     const onSubmit = (data) => {
         login({
-            email: data.email,
+            username: data.username,
             password: data.password,
         });
     };
 
     return (
         <FormWrapper title="Log In" onSubmit={handleSubmit(onSubmit)} buttonText="Login">
-            {error && <p className="text-danger">{error}</p>}
+            {error && typeof error === "object" && !Array.isArray(error)
+                ? Object.entries(error).map(([field, messages]) => (
+                    <p key={field} className="text-danger">
+                        {field}: {Array.isArray(messages) ? messages.join(", ") : messages}
+                    </p>
+                ))
+                : Array.isArray(error)
+                    ? error.map((errMsg, index) => (
+                        <p key={index} className="text-danger">{errMsg}</p>
+                    ))
+                    : typeof error === "string"
+                        ? <p className="text-danger">{error}</p>
+                        : null}
 
             <FormInput
-                label="Email"
-                type="email"
-                placeholder="Enter your email"
-                {...register("email", { required: "Email is required" })}
-                error={errors.email}
+                label="username"
+                type="text"
+                placeholder="Enter your username"
+                {...register("username", { required: "Username is required" })}
+                error={errors.username}
             />
 
             <FormInput
