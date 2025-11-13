@@ -1,0 +1,231 @@
+.dashboard {
+min-height: 100vh;
+position: relative;
+font-family: 'Space Grotesk', sans-serif;
+overflow-x: hidden;
+padding: 1rem;
+}
+
+/* Title */
+.title {
+font-size: 1.75rem;
+font-weight: 700;
+margin-bottom: 1rem;
+}
+
+/* Add button */
+.addButton {
+background: linear-gradient(to right, #29e3da, #24c7bc);
+color: #0f1a24 !important;
+font-weight: 700;
+border: none;
+transition: box-shadow 0.3s ease;
+}
+.addButton:hover {
+box-shadow: 0 0 15px rgba(41, 227, 218, 0.3);
+}
+
+/* Stats */
+.stats {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+margin-bottom: 2rem;
+}
+.card {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+flex: 1;
+min-width: 140px;
+padding: 1rem;
+border-radius: 0.75rem;
+text-align: center;
+}
+.card h4 {
+color: #b5bfc4;
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+}
+.card p {
+color: white;
+font-size: 1.25rem;
+font-weight: 600;
+}
+
+/* Table */
+.tableContainer {
+border-radius: 0.75rem;
+padding: 1rem;
+border: 1px solid rgba(255, 255, 255, 0.1);
+background-color: transparent;
+overflow-x: auto;
+}
+
+.responsiveTable {
+width: 100%;
+overflow-x: auto;
+}
+
+.customTable {
+width: 100%;
+min-width: 600px; /* Ensures table scrolls on small screens */
+border-collapse: collapse;
+}
+
+.customTable th, .customTable td {
+padding: 0.75rem 1rem;
+border-bottom: 1px solid #444;
+text-align: left;
+color: #e6edf3;
+}
+
+.customTable thead {
+color: #58a6ff;
+text-transform: uppercase;
+}
+
+.customTable tbody tr:hover {
+background-color: #4d7978;
+}
+
+.tableRow {
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statusDot {
+display: inline-block;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+margin-right: 6px;
+vertical-align: middle;
+}
+
+/* Buttons */
+.editBtn {
+color: #58a6ff;
+transition: color 0.2s ease;
+}
+.editBtn:hover {
+color: #1f6feb;
+}
+
+.deleteBtn {
+color: #f87171;
+transition: color 0.2s ease;
+}
+.deleteBtn:hover {
+color: #dc2626;
+}
+/* Modal overlay (background) */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start; /* important: start from top but not cut */
+  justify-content: center;
+  z-index: 2000;
+  overflow-y: auto; /* enable scroll if content too long */
+  padding: 2rem 1rem; /* give top/bottom breathing room */
+  background-color: rgba(0, 0, 0, 0.6); /* dark overlay background */
+  box-sizing: border-box;
+}
+
+/* Modal content */
+.modal {
+  background: #030c20;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  margin-top: 2rem; /* ensure it's not stuck to top */
+  margin-bottom: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Smooth entrance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal {
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+
+
+
+/* Center loading spinner */
+.center {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+}
+
+.empty {
+text-align: center;
+color: #b5bfc4;
+padding: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+.stats {
+flex-direction: column;
+}
+.customTable {
+min-width: 500px;
+}
+.modal {
+padding: 1.5rem;
+}
+}
+
+@media (max-width: 480px) {
+.customTable {
+min-width: 400px;
+}
+.title {
+font-size: 1.5rem;
+}
+.addButton {
+font-size: 0.9rem;
+}
+.card p {
+font-size: 1.1rem;
+}
+}
+
+/* Modal fade-in animation */
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(-20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+.modal {
+padding: 1.5rem;
+}
+}
+
+@media (max-width: 480px) {
+.modal {
+padding: 1rem;
+}
+}

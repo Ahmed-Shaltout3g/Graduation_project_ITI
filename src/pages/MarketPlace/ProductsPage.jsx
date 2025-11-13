@@ -157,7 +157,7 @@ const ProductsPage = () => {
       </Container>
 
       <Container fluid className="py-5">
-        <Row className="justify-content-center">
+        <Row >
           {/* Sidebar */}
           <Col md={3} className="mb-4">
             <Card bg="transparent" text="light" className="border-info">
