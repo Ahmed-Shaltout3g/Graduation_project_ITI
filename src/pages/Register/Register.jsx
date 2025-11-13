@@ -14,9 +14,13 @@ const Register = () => {
 
     const onSubmit = (data) => {
         authRegister({
-            name: data.name,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            username: data.username,
             email: data.email,
             phone: data.phone,
+            university: data.university,
+            faculty: data.faculty,
             password: data.password,
             rePassword: data.rePassword,
         });
@@ -24,14 +28,41 @@ const Register = () => {
 
     return (
         <FormWrapper title="Register" onSubmit={handleSubmit(onSubmit)} buttonText="Register">
-            {error && <p className="text-danger">{error}</p>}
+            {error && typeof error === "object" && !Array.isArray(error)
+                ? Object.entries(error).map(([field, messages]) => (
+                    <p key={field} className="text-danger">
+                        {field}: {Array.isArray(messages) ? messages.join(", ") : messages}
+                    </p>
+                ))
+                : Array.isArray(error)
+                    ? error.map((errMsg, index) => (
+                        <p key={index} className="text-danger">{errMsg}</p>
+                    ))
+                    : typeof error === "string"
+                        ? <p className="text-danger">{error}</p>
+                        : null}
+
 
             <FormInput
-                label="Full Name"
+                label="first name"
                 type="text"
-                placeholder="Enter your full name"
-                {...register("name", { required: "Full Name is required" })}
-                error={errors.name}
+                placeholder="Enter your first name"
+                {...register("first_name", { required: "First name is required" })}
+                error={errors.first_name}
+            />
+            <FormInput
+                label="last name"
+                type="text"
+                placeholder="Enter your last name"
+                {...register("last_name", { required: "Last name is required" })}
+                error={errors.last_name}
+            />
+            <FormInput
+                label="Username"
+                type="text"
+                placeholder="Enter your username"
+                {...register("username", { required: "Username is required" })}
+                error={errors.username}
             />
 
             <FormInput
@@ -48,6 +79,20 @@ const Register = () => {
                 placeholder="Enter your phone number"
                 {...register("phone", { required: "Phone number is required" })}
                 error={errors.phone}
+            />
+            <FormInput
+                label="University"
+                type="text"
+                placeholder="Enter your university"
+                {...register("university", { required: "University is required" })}
+                error={errors.university}
+            />
+            <FormInput
+                label="Faculty"
+                type="text"
+                placeholder="Enter your faculty"
+                {...register("faculty", { required: "Faculty is required" })}
+                error={errors.faculty}
             />
 
             <FormInput

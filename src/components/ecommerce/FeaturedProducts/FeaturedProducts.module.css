@@ -64,3 +64,7 @@
   background-size: cover;
   background-position: center;
 }
+
+.card{
+  height: 400px;
+}

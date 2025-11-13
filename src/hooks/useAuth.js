@@ -8,23 +8,27 @@ export const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { user, loading, error,token } = useSelector((state) => state.auth);
  
   // Login
   const login = async (data) => {
     const result = await dispatch(loginUser(data));
     if (loginUser.fulfilled.match(result)) {
-      localStorage.setItem("token", result.payload.token);
+      console.log(result);
+      localStorage.setItem("token", result.payload.access);
+      
       navigate("/");
     }
   };
 
   // Register
   const register = async (data) => {
+    
     const result = await dispatch(registerUser(data));
+
     if (registerUser.fulfilled.match(result)) {
-      localStorage.setItem("token", result.payload.token);
-      navigate("/");
+      console.log(result.payload);
+      navigate("/login");
     }
   };
 
@@ -58,7 +62,7 @@ export const useAuth = () => {
   const logoutUser = () => {
     dispatch(logout());
     localStorage.removeItem("token");
-    localStorage.removeItem("userName");
+    localStorage.removeItem("FirstName");
 
     navigate("/login");
   };
@@ -67,6 +71,7 @@ export const useAuth = () => {
     user,
     loading,
     error,
+token,
     login,
     register,
     logoutUser,
