@@ -27,7 +27,7 @@ export default function HeroSection() {
                 </p>
 
 
-                <Link to="/product">
+                <Link to="/marketplace">
                     <div className="d-inline-flex align-items-center justify-content-center gap-2 rounded-pill bg-opacity-10 bg-primary border border-info px-4 py-2 mb-4">
                         <p className="text-info mb-0 fw-medium small">
                             <i className="bi bi-stars me-2"></i> Shopping Now

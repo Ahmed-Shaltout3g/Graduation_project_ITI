@@ -7,6 +7,7 @@ import Reviews from '@components/ecommerce/ReviewsSection/Reviews';
 import { useProduct } from './../../hooks/useProducts';
 import { useCategories } from './../../hooks/useCategories';
 import SubscriptionPlans from '@components/ecommerce/SubscriptionPlans/SubscriptionPlans';
+import ChatbotWidget from '@components/ecommerce/chatbot/ChatbotWidget';
 
 export default function Home() {
     const { products, loading: loadingProducts, error: errorProducts } = useProduct();
@@ -25,6 +26,7 @@ export default function Home() {
             <CategoriesSection categories={categories} />
             <Reviews />
             <SubscriptionPlans />
+            <ChatbotWidget />
 
         </>
     );
