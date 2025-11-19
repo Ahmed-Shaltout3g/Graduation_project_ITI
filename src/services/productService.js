@@ -1,10 +1,9 @@
-// src/services/productService.js
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import * as jwtDecode from "jwt-decode";
+
 const API_URL = import.meta.env.VITE_API_URL + "/products/";
 
 export const productService = {
-  // ✅ Get all products
   getAll: async () => {
     try {
       const res = await axios.get(API_URL);
@@ -15,33 +14,32 @@ export const productService = {
     }
   },
 
-  // ✅ Get current user's products
   getMyProducts: async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return [];
 
-const decoded = jwtDecode(token);
-      const userId = decoded.user_id; // depends on your token payload structure
-console.log(decoded.user_id);
+      const decoded = jwtDecode.jwtDecode(token);
+      const userId = decoded.user_id;
 
-      
+      console.log(decoded.user_id);
+
       const config = {
-        headers: {
-          Authorization: `Bearer  ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
         params: { seller: userId },
       };
+
       const response = await axios.get(API_URL, config);
       console.log(response.data.results);
 
       return response.data.results;
-      
     } catch (error) {
       console.error("Error fetching user products:", error);
       return [];
     }
   },
+  
+  
 
   // ✅ Create new product
   create: async (data) => {
