@@ -4,8 +4,7 @@ import Footer from "@components/common/layout/Footer/Footer";
 import { Outlet } from "react-router-dom";
 
 const dashboardLinks = [
-    { label: "My Ads", path: "/dashboard/ads" },
-    { label: "Add New Ad", path: "/dashboard/add-ad" },
+    { label: "My Ads", path: "/dashboard" },
     { label: "Profile", path: "/dashboard/profile" },
 ];
 

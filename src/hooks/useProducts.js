@@ -1,28 +1,50 @@
-// src/hooks/useProduct.js
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import {
   fetchProducts,
+  fetchMyProducts,
   createProduct,
   updateProduct,
   deleteProduct,
-  fetchMyProducts,
 } from "../store/slices/productSlice";
-import { useEffect } from "react";
 
 export const useProduct = () => {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
 
-  // ✅ تحميل المنتجات مرة واحدة عند تشغيل الصفحة
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  const refetch = () => dispatch(fetchProducts());
+  const refetchMyProducts = () => dispatch(fetchMyProducts());
 
-  // ✅ عمليات CRUD
-   const getMyProducts = () => dispatch(fetchMyProducts());
-  const addProduct = (data) => dispatch(createProduct(data));
-  const editProduct = (id, data) => dispatch(updateProduct({ id, data }));
-  const removeProduct = (id) => dispatch(deleteProduct(id));
+  const addProduct = async (data) => {
+    const result = await dispatch(createProduct(data));
+    if (createProduct.fulfilled.match(result)) {
+      refetchMyProducts();
+      return result.payload;
+    }
+    return null;
+  };
+
+  const editProduct = async (id, data) => {
+    const result = await dispatch(updateProduct({ id, data }));
+    if (updateProduct.fulfilled.match(result)) {
+      refetchMyProducts();
+      return result.payload;
+    }
+    return null;
+  };
+
+  const removeProduct = async (id) => {
+    const result = await dispatch(deleteProduct(id));
+    if (deleteProduct.fulfilled.match(result)) {
+      refetchMyProducts();
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [dispatch]);
 
   return {
     products,
@@ -31,9 +53,8 @@ export const useProduct = () => {
     addProduct,
     editProduct,
     removeProduct,
-    getMyProducts,
-    refetch: () => dispatch(fetchProducts()),
-    refetchMyProducts: () => dispatch(fetchMyProducts()),
-
+    refetch,
+    refetchMyProducts,
+    getMyProducts: refetchMyProducts,
   };
 };

@@ -1,87 +1,41 @@
-// src/services/productService.js
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-const API_URL = import.meta.env.VITE_API_URL + "/products/";
+import axiosInstance from "./api";
+import { getUserIdFromToken } from "../utils/auth";
+
+const API_URL = "/products/";
+const userId = getUserIdFromToken();
 
 export const productService = {
-  // ✅ Get all products
   getAll: async () => {
-    try {
-      const res = await axios.get(API_URL);
-      return res.data;
-    } catch (error) {
-      console.error("Error fetching all products:", error);
-      return [];
-    }
+    const res = await axiosInstance.get(API_URL);
+    console.log(res.data.results);
+    
+    return res.data.results;
   },
 
-  // ✅ Get current user's products
   getMyProducts: async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) return [];
-
-const decoded = jwtDecode(token);
-      const userId = decoded.user_id; // depends on your token payload structure
-console.log(decoded.user_id);
-
-      
-      const config = {
-        headers: {
-          Authorization: `Bearer  ${token}`,
-        },
-        params: { seller: userId },
-      };
-      const response = await axios.get(API_URL, config);
-      console.log(response.data.results);
-
-      return response.data.results;
-      
-    } catch (error) {
-      console.error("Error fetching user products:", error);
-      return [];
-    }
+    const res = await axiosInstance.get(API_URL, { params: { seller__id: userId } });
+    return res.data.results;
   },
 
-  // ✅ Create new product
   create: async (data) => {
-    try {
-      const token = localStorage.getItem("token");
-      const config = { headers: { Authorization: `Bearer  ${token}` } };
-      const response = await axios.post(API_URL, data, config);
-      console.log("Product created:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error("Error creating product:", error.response?.data || error.message);
-      throw error;
-    }
+    const res = await axiosInstance.post(API_URL, data);
+    return res.data;
   },
 
-  // ✅ Update product
   update: async (id, data) => {
-    try {
-      const token = localStorage.getItem("token");
-      const config = { headers: { Authorization: `Bearer  ${token}` } };
-      const response = await axios.put(`${API_URL}${id}/`, data, config);
-      console.log("Product updated:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating product with id ${id}:`, error.response?.data || error.message);
-      throw error;
-    }
+    const res = await axiosInstance.put(`${API_URL}${id}/`, data);
+    console.log(res);
+    
+    return res.data;
   },
 
-  // ✅ Delete product
   delete: async (id) => {
-    try {
-      const token = localStorage.getItem("token");
-      const config = { headers: { Authorization: `Bearer  ${token}` } };
-      await axios.delete(`${API_URL}${id}/`, config);
-      console.log(`Product with id ${id} deleted successfully.`);
-      return id;
-    } catch (error) {
-      console.error(`Error deleting product with id ${id}:`, error.response?.data || error.message);
-      throw error;
-    }
+    await axiosInstance.delete(`${API_URL}${id}/`);
+    return id;
+  },
+
+  getProductDetails: async (id) => {
+    const res = await axiosInstance.get(`${API_URL}${id}/`);
+    return res.data;
   },
 };
