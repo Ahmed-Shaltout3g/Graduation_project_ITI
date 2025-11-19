@@ -7,41 +7,67 @@ import { signInWithPopup } from "firebase/auth";
 export const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user, loading, error, token } = useSelector((state) => state.auth);
 
-  const { user, loading, error,token } = useSelector((state) => state.auth);
- 
-  // Login
+  // Login with email/password
   const login = async (data) => {
     const result = await dispatch(loginUser(data));
     if (loginUser.fulfilled.match(result)) {
-      console.log(result);
       localStorage.setItem("token", result.payload.access);
-      
+      localStorage.setItem("user", JSON.stringify(result.payload.user));
       navigate("/");
     }
   };
 
-  // Register
+  // Register with email/password
   const register = async (data) => {
-    
     const result = await dispatch(registerUser(data));
-
     if (registerUser.fulfilled.match(result)) {
-      console.log(result.payload);
       navigate("/login");
     }
+  };
+
+  // Helper: clean username to match backend pattern
+  const sanitizeUsername = (name, email) => {
+    if (!name) return email.split("@")[0];
+    return name.replace(/\s+/g, "").replace(/[^\w.@+-]/g, "");
   };
 
   // Google OAuth
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google User:", result.user);
-      localStorage.setItem("userName", result.user.displayName);
-      navigate("/")
-      // Optional: send result.user to backend to register/login
+      const username = sanitizeUsername(result.user.displayName, result.user.email);
+
+      const userData = {
+        email: result.user.email,
+        username,
+        password: result.user.uid, // temporary password
+        first_name: result.user.displayName?.split(" ")[0] || "",
+        last_name: result.user.displayName?.split(" ")[1] || "",
+      };
+
+      // Try login first
+      let loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
+      if (!loginUser.fulfilled.match(loginRes)) {
+        // If login fails, register then login
+        await dispatch(registerUser(userData));
+        loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
+      }
+
+      if (loginUser.fulfilled.match(loginRes)) {
+        localStorage.setItem(
+          "token",
+          loginRes.payload.access
+        );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ username, email: result.user.email, photoURL: result.user.photoURL })
+        );
+        navigate("/");
+      }
     } catch (err) {
-      console.error(err.message);
+      console.error("Google login error:", err.message);
     }
   };
 
@@ -49,12 +75,37 @@ export const useAuth = () => {
   const loginWithFacebook = async () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);
-      console.log("Facebook User:", result.user);
-      // Optional: send result.user to backend to register/login
-      localStorage.setItem("userName", result.user.displayName);
-      navigate("/")
+      const username = sanitizeUsername(result.user.displayName, result.user.email);
+
+      const userData = {
+        email: result.user.email,
+        username,
+        password: result.user.uid,
+        first_name: result.user.displayName?.split(" ")[0] || "",
+        last_name: result.user.displayName?.split(" ")[1] || "",
+      };
+
+      // Try login first
+      let loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
+      if (!loginUser.fulfilled.match(loginRes)) {
+        // If login fails, register then login
+        await dispatch(registerUser(userData));
+        loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
+      }
+
+      if (loginUser.fulfilled.match(loginRes)) {
+        localStorage.setItem(
+          "token",
+          loginRes.payload.access
+        );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ username, email: result.user.email, photoURL: result.user.photoURL })
+        );
+        navigate("/");
+      }
     } catch (err) {
-      console.error(err.message);
+      console.error("Facebook login error:", err.message);
     }
   };
 
@@ -62,8 +113,7 @@ export const useAuth = () => {
   const logoutUser = () => {
     dispatch(logout());
     localStorage.removeItem("token");
-    localStorage.removeItem("FirstName");
-
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
@@ -71,7 +121,7 @@ export const useAuth = () => {
     user,
     loading,
     error,
-token,
+    token,
     login,
     register,
     logoutUser,

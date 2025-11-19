@@ -1,4 +1,5 @@
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AppRoutes from './routes/AppRoutes'
 import './App.css'
 
@@ -13,6 +14,7 @@ function App() {
     <div className="position-relative" style={{ zIndex: 1 }}>
       <AppRoutes />
     </div>
+    <ToastContainer position="top-right" autoClose={5000} />
   </>
 }
 

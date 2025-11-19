@@ -6,6 +6,7 @@ import Reviews from '@components/ecommerce/ReviewsSection/Reviews';
 
 import { useProduct } from './../../hooks/useProducts';
 import { useCategories } from './../../hooks/useCategories';
+import SubscriptionPlans from '@components/ecommerce/SubscriptionPlans/SubscriptionPlans';
 
 export default function Home() {
     const { products, loading: loadingProducts, error: errorProducts } = useProduct();
@@ -20,9 +21,11 @@ export default function Home() {
     return (
         <>
             <HeroSection />
-            <FeaturedProducts title="Featured Products" products={products.results} />
+            <FeaturedProducts title="Featured Products" products={products} />
             <CategoriesSection categories={categories} />
             <Reviews />
+            <SubscriptionPlans />
+
         </>
     );
 }
