@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import * as jwtDecode from "jwt-decode";
+import axiosInstance from "./axiosInstance.js";
 
 const API_URL = import.meta.env.VITE_API_URL + "/products/";
 
