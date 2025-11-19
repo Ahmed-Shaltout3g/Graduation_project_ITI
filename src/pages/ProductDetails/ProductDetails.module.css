@@ -1,0 +1,81 @@
+.page{
+    padding-top: 5rem !important;
+}
+
+.mainImage {
+  width: 100%;
+  padding-top: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 1rem;
+}
+
+.thumbnail {
+  width: 60px;
+  padding-top: 60px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.5rem;
+  border: 2px solid #2be3da;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #b5bfc4;
+  font-size: 1rem;
+}
+
+.description {
+  color: #b5bfc4;
+}
+
+.star {
+  color: #2be3da;
+}
+
+.reviewLink {
+  color: #b5bfc4;
+  text-decoration: underline;
+}
+
+.features p {
+  color: #b5bfc4;
+}
+
+.featureIcon {
+  color: #2be3da;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.cartButton {
+  background: linear-gradient(to right, #2be3da, #25b5ad);
+  color: #0f1a24;
+  font-weight: bold;
+  width: 200px;
+}
+
+.reviewsCard {
+  border: 1px solid #2be3da;
+  border-radius: 1rem;
+}
+
+.reviewScore {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.progress {
+  height: 6px;
+  border-radius: 3px;
+}

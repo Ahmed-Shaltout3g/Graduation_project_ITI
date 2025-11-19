@@ -9,6 +9,8 @@ import ChatApp from "@pages/Chat/ChatApp";
 import UserLayout from "../layout/UserLayout";
 import NotFound from "@pages/NotFound";
 import MyAds from "@pages/MyAds/MyAds";
+import ProductDetails from "@pages/ProductDetails/ProductDetails";
+import ProfilePage from "@pages/Profile/ProfilePage";
 
 export default function AppRoutes() {
     return (
@@ -22,13 +24,14 @@ export default function AppRoutes() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/chat" element={<ChatApp />} />
+                    <Route path="/product/:id" element={<ProductDetails />} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
 
                 {/* ---------------- User Dashboard Layout ---------------- */}
                 <Route path="/dashboard" element={<UserLayout />}>
                     <Route index element={<MyAds />} />
-                    {/* <Route path="add-ad" element={<AddAdPage />} /> */}
+                    <Route path="profile" element={<ProfilePage />} />
                     {/* <Route path="profile" element={<ProfilePage />} /> */}
                 </Route>
 

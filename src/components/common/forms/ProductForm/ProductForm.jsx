@@ -6,7 +6,6 @@ import { useProduct } from "../../../../hooks/useProducts";
 
 export default function ProductForm({ product, onClose, onSuccess }) {
     const { refetchMyProducts } = useProduct();
-
     const { categories, loading } = useCategories();
     const { addProduct, editProduct } = useProduct();
     const [preview, setPreview] = useState(product?.image || "");
@@ -30,7 +29,7 @@ export default function ProductForm({ product, onClose, onSuccess }) {
         },
     });
 
-    // ✅ عند تعديل منتج، نحط القيم القديمة
+    // عند تعديل منتج، نحط القيم القديمة
     useEffect(() => {
         if (product) {
             setValue("title", product.title || "");
@@ -45,13 +44,16 @@ export default function ProductForm({ product, onClose, onSuccess }) {
         }
     }, [product, setValue]);
 
-    // ✅ عند حفظ المنتج
+    // حفظ المنتج
     const onSubmit = async (data) => {
         const formData = new FormData();
 
         Object.entries(data).forEach(([key, value]) => {
-            if (key === "image" && value && typeof value !== "string") {
-                formData.append("image", value[0]); // رفع الصورة
+            if (key === "image") {
+                // فقط إذا تم اختيار صورة جديدة
+                if (value && typeof value !== "string") {
+                    formData.append("image", value[0]);
+                }
             } else {
                 formData.append(key, value);
             }
@@ -59,23 +61,24 @@ export default function ProductForm({ product, onClose, onSuccess }) {
 
         try {
             if (product) {
-                await editProduct(product.id, formData, true);
+                // تحديث المنتج (PATCH أفضل لتجنب مسح الحقول غير المرسلة)
+                await editProduct(product.id, formData);
             } else {
-                await addProduct(formData, true);
+                await addProduct(formData);
             }
-            onClose(); // ✅ إغلاق الفورم
-            refetchMyProducts(); // ✅ تحديث المنتجات في MyAds
-            if (onSuccess) onSuccess(); // ✅ استدعاء التحديث في MyAds
+            onClose(); // إغلاق الفورم
+            refetchMyProducts(); // تحديث المنتجات
+            if (onSuccess) onSuccess(); // تحديث عند النجاح
         } catch (error) {
             console.error("Error saving product:", error);
         }
     };
 
-    // ✅ معاينة الصورة
+    // معاينة الصورة
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setValue("image", e.target.files);
+            setValue("image", e.target.files); // تحديث قيمة الفورم
             const reader = new FileReader();
             reader.onload = () => setPreview(reader.result);
             reader.readAsDataURL(file);
@@ -200,9 +203,7 @@ export default function ProductForm({ product, onClose, onSuccess }) {
                         {...register("status", { required: "Status is required" })}
                         className={styles.input}
                     />
-                    {errors.status && (
-                        <p className={styles.error}>{errors.status.message}</p>
-                    )}
+                    {errors.status && <p className={styles.error}>{errors.status.message}</p>}
                 </div>
 
                 {/* Image Upload */}

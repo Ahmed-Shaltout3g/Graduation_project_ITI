@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // import navigate
 import styles from "../FeaturedProducts/FeaturedProducts.module.css";
 import ButtonPrimary from "@components/common/ButtonPrimary/ButtonPrimary";
 
 export default function ProductCard({ product }) {
-    const { title, description, image, buttonText = "Overview", name } = product;
+    const { id, title, description, image, buttonText = "Overview", name } = product;
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/product/${id}`); // navigate to product details page
+    };
 
     return (
         <div className={`${styles.card} d-flex flex-column justify-content-between p-3`}>
@@ -17,7 +23,7 @@ export default function ProductCard({ product }) {
                     <p className="text-secondary small">{description}</p>
                 </div>
             </div>
-            <ButtonPrimary text={buttonText} />
+            <ButtonPrimary text={buttonText} onClick={handleClick} />
         </div>
     );
 }
