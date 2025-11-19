@@ -1,8 +1,9 @@
-import axiosInstance from "./api";
-import { getUserIdFromToken } from "../utils/auth";
 
-const API_URL = "/products/";
-const userId = getUserIdFromToken();
+import axios from "axios";
+import * as jwtDecode from "jwt-decode";
+
+const API_URL = import.meta.env.VITE_API_URL + "/products/";
+
 
 export const productService = {
   getAll: async () => {
@@ -13,9 +14,31 @@ export const productService = {
   },
 
   getMyProducts: async () => {
-    const res = await axiosInstance.get(API_URL, { params: { seller__id: userId } });
-    return res.data.results;
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return [];
+
+      const decoded = jwtDecode.jwtDecode(token);
+      const userId = decoded.user_id;
+
+      console.log(decoded.user_id);
+
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { seller: userId },
+      };
+
+      const response = await axios.get(API_URL, config);
+      console.log(response.data.results);
+
+      return response.data.results;
+    } catch (error) {
+      console.error("Error fetching user products:", error);
+      return [];
+    }
   },
+  
+  
 
   create: async (data) => {
     const res = await axiosInstance.post(API_URL, data);
