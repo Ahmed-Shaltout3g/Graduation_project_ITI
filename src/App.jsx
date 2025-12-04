@@ -1,21 +1,21 @@
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import AppRoutes from './routes/AppRoutes'
-import './App.css'
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./store/slices/authSlice";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
+  const dispatch = useDispatch();
 
-  return <>
-    <div className="background-container">
-      <div className="glow-lines"></div>
-      <div className="grid-pattern"></div>
-    </div>
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
 
-    <div className="position-relative" style={{ zIndex: 1 }}>
-      <AppRoutes />
-    </div>
-    <ToastContainer position="top-right" autoClose={5000} />
-  </>
+    if (token && user) {
+      dispatch(setCurrentUser({ token, user }));
+    }
+  }, [dispatch]);
+
+  return <AppRoutes />;
 }
 
-export default App
+export default App;

@@ -34,6 +34,7 @@ const productSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    myProducts: [],
     loading: false,
     error: null,
   },
@@ -52,18 +53,34 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+      // Fetch My
+      .addCase(fetchMyProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMyProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.myProducts = action.payload;
+      })
+      .addCase(fetchMyProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       // Create
       .addCase(createProduct.fulfilled, (state, action) => {
         state.products.push(action.payload);
+        state.myProducts.push(action.payload);
       })
       // Update
       .addCase(updateProduct.fulfilled, (state, action) => {
         const index = state.products.findIndex((p) => p.id === action.payload.id);
         if (index !== -1) state.products[index] = action.payload;
+        const myIndex = state.myProducts.findIndex((p) => p.id === action.payload.id);
+        if (myIndex !== -1) state.myProducts[myIndex] = action.payload;
       })
       // Delete
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.products = state.products.filter((p) => p.id !== action.payload);
+        state.myProducts = state.myProducts.filter((p) => p.id !== action.payload);
       });
   },
 });

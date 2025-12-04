@@ -1,9 +1,7 @@
 
-import axios from "axios";
-import * as jwtDecode from "jwt-decode";
-import axiosInstance from "./axiosInstance.js";
+import axiosInstance from "./api.js";
 
-const API_URL = import.meta.env.VITE_API_URL + "/products/";
+const API_URL = "products/";
 
 
 export const productService = {
@@ -16,23 +14,9 @@ export const productService = {
 
   getMyProducts: async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) return [];
-
-      const decoded = jwtDecode.jwtDecode(token);
-      const userId = decoded.user_id;
-
-      console.log(decoded.user_id);
-
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-        params: { seller: userId },
-      };
-
-      const response = await axios.get(API_URL, config);
-      console.log(response.data.results);
-
-      return response.data.results;
+      const response = await axiosInstance.get(`${API_URL}my_products/`);
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.error("Error fetching user products:", error);
       return [];

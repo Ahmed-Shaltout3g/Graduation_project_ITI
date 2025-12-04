@@ -6,20 +6,12 @@ import ProductForm from "../../components/common/forms/ProductForm/ProductForm";
 import { useProduct } from "../../hooks/useProducts";
 
 export default function MyAds() {
-    const { loading, error, getMyProducts, removeProduct } = useProduct();
+    const { loading, error, myProducts, removeProduct, refetchMyProducts } = useProduct();
     const [showForm, setShowForm] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
-    const [myProducts, setMyProducts] = useState([]);
-
-    const fetchProducts = async () => {
-        const products = await getMyProducts();
-        console.log(products);
-
-        setMyProducts(products?.payload || []);
-    };
 
     useEffect(() => {
-        fetchProducts();
+        refetchMyProducts();
     }, []);
 
     const handleAdd = () => {
@@ -35,14 +27,14 @@ export default function MyAds() {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
             const success = await removeProduct(id);
-            if (success) fetchProducts();
+            if (success) refetchMyProducts();
         }
     };
 
     const handleFormClose = () => setShowForm(false);
     const handleFormSuccess = () => {
         setShowForm(false);
-        fetchProducts();
+        refetchMyProducts();
     };
 
     return (
@@ -85,7 +77,9 @@ export default function MyAds() {
                                         <td>{product.title}</td>
                                         <td>{product.category_name || ""}</td>
                                         <td>${product.price}</td>
-                                        <td>{product.is_active ? "Active" : "Draft"}</td>
+                                        <td className={product.status === "active" ? "text-success" : product.status === "pending" ? "text-warning" : "text-danger"}>
+                                            {product.status === "active" ? "Active" : product.status === "pending" ? "Pending" : "Inactive"}
+                                        </td>
                                         <td>
                                             <div className="d-flex gap-3">
                                                 <Button

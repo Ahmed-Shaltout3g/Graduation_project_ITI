@@ -8,6 +8,8 @@ import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
     const { login, loading, error, loginWithGoogle, loginWithFacebook } = useAuth();
+   
+
 
     const {
         register,

@@ -1,7 +1,9 @@
 import React from "react";
 import { Row, Col, Card, Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const ProductsGrid = ({ products, allProductsCount, filters, onFilterChange }) => {
+  const navigate = useNavigate();
 
   const handleRemoveFilter = (filterType) => {
     onFilterChange(prev => ({
@@ -10,6 +12,29 @@ const ProductsGrid = ({ products, allProductsCount, filters, onFilterChange }) =
         filterType === 'inStock' ? false :
           filterType === 'features' ? [] : ""
     }));
+  };
+
+  const handleViewDetails = (productId) => {
+    // Use productId as passed, but ensure it's valid
+    if (productId) {
+      navigate(`/product/${productId}`);
+    } else {
+      console.error('Product ID is missing');
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    const statusLower = status?.toLowerCase() || 'unknown';
+    switch (statusLower) {
+      case 'active':
+        return { variant: 'bg-success', text: 'Available' };
+      case 'inactive':
+        return { variant: 'bg-danger', text: 'Unavailable' };
+      case 'pending':
+        return { variant: 'bg-warning', text: 'Pending' };
+      default:
+        return { variant: 'bg-secondary', text: status || 'Unknown' };
+    }
   };
 
   return (
@@ -62,7 +87,7 @@ const ProductsGrid = ({ products, allProductsCount, filters, onFilterChange }) =
             const prodTitle = String(product.title || 'No Title');
             const prodDesc = String(product.description || 'No description available');
             const prodPrice = product.price || 'N/A';
-            const prodStatus = String(product.status || 'unknown');
+            const statusBadge = getStatusBadge(product.status);
 
             return (
               <Col key={product.id || product._id} md={6} lg={4} className="mb-4">
@@ -85,8 +110,8 @@ const ProductsGrid = ({ products, allProductsCount, filters, onFilterChange }) =
                     <div className="mt-auto">
                       <div className="d-flex justify-content-between align-items-center mb-2">
                         <span className="h5 text-info mb-0">${prodPrice}</span>
-                        <span className={`badge ${prodStatus.toLowerCase() === 'available' ? 'bg-success' : 'bg-warning'}`}>
-                          {prodStatus}
+                        <span className={`badge ${statusBadge.variant}`}>
+                          {statusBadge.text}
                         </span>
                       </div>
 
@@ -95,7 +120,13 @@ const ProductsGrid = ({ products, allProductsCount, filters, onFilterChange }) =
                         {product.faculty && <div>Faculty: {product.faculty}</div>}
                       </div>
 
-                      <Button variant="info" className="w-100 mt-2">View Details</Button>
+                      <Button
+                        variant="info"
+                        className="w-100 mt-2"
+                        onClick={() => handleViewDetails(product.id || product._id)}
+                      >
+                        View Details
+                      </Button>
                     </div>
                   </Card.Body>
                 </Card>

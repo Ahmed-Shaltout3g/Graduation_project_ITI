@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser, registerUser, logout } from "../store/slices/authSlice";
+import { loginUser, registerUser, logoutUser, setCurrentUser } from "../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { auth, facebookProvider, googleProvider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
@@ -27,7 +27,6 @@ export const useAuth = () => {
     }
   };
 
-  // Helper: clean username to match backend pattern
   const sanitizeUsername = (name, email) => {
     if (!name) return email.split("@")[0];
     return name.replace(/\s+/g, "").replace(/[^\w.@+-]/g, "");
@@ -42,24 +41,19 @@ export const useAuth = () => {
       const userData = {
         email: result.user.email,
         username,
-        password: result.user.uid, // temporary password
+        password: result.user.uid,
         first_name: result.user.displayName?.split(" ")[0] || "",
         last_name: result.user.displayName?.split(" ")[1] || "",
       };
 
-      // Try login first
       let loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
       if (!loginUser.fulfilled.match(loginRes)) {
-        // If login fails, register then login
         await dispatch(registerUser(userData));
         loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
       }
 
       if (loginUser.fulfilled.match(loginRes)) {
-        localStorage.setItem(
-          "token",
-          loginRes.payload.access
-        );
+        localStorage.setItem("token", loginRes.payload.access);
         localStorage.setItem(
           "user",
           JSON.stringify({ username, email: result.user.email, photoURL: result.user.photoURL })
@@ -85,19 +79,14 @@ export const useAuth = () => {
         last_name: result.user.displayName?.split(" ")[1] || "",
       };
 
-      // Try login first
       let loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
       if (!loginUser.fulfilled.match(loginRes)) {
-        // If login fails, register then login
         await dispatch(registerUser(userData));
         loginRes = await dispatch(loginUser({ username, password: result.user.uid }));
       }
 
       if (loginUser.fulfilled.match(loginRes)) {
-        localStorage.setItem(
-          "token",
-          loginRes.payload.access
-        );
+        localStorage.setItem("token", loginRes.payload.access);
         localStorage.setItem(
           "user",
           JSON.stringify({ username, email: result.user.email, photoURL: result.user.photoURL })
@@ -110,8 +99,8 @@ export const useAuth = () => {
   };
 
   // Logout
-  const logoutUser = () => {
-    dispatch(logout());
+  const handleLogout = () => {
+    dispatch(logoutUser());
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/login");
@@ -124,7 +113,7 @@ export const useAuth = () => {
     token,
     login,
     register,
-    logoutUser,
+    logoutUser: handleLogout,
     loginWithGoogle,
     loginWithFacebook,
   };

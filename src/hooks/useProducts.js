@@ -10,7 +10,7 @@ import {
 
 export const useProduct = () => {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
+  const { products, myProducts, loading, error } = useSelector((state) => state.products);
 
   const refetch = () => dispatch(fetchProducts());
   const refetchMyProducts = () => dispatch(fetchMyProducts());
@@ -48,6 +48,7 @@ export const useProduct = () => {
 
   return {
     products,
+    myProducts,
     loading,
     error,
     addProduct,

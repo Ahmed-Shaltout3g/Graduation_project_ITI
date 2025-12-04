@@ -198,11 +198,15 @@ export default function ProductForm({ product, onClose, onSuccess }) {
                 {/* Status */}
                 <div className={styles.formGroup}>
                     <label>Status</label>
-                    <input
-                        type="text"
-                        {...register("status", { required: "Status is required" })}
-                        className={styles.input}
-                    />
+                    <select
+                        {...register("status", { required: "Please select status" })}
+                        className={styles.select}
+                    >
+                        <option value="">Select Status</option>
+                        <option value="active">Active (Available for sale)</option>
+                        <option value="inactive">Inactive (Not available)</option>
+                        <option value="pending">Pending (Under review)</option>
+                    </select>
                     {errors.status && <p className={styles.error}>{errors.status.message}</p>}
                 </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "@components/common/layout/Header/Header";
 import Footer from "@components/common/layout/Footer/Footer";
+import ChatbotWidget from "@components/ecommerce/chatbot/ChatbotWidget";
 import { Outlet } from "react-router-dom";
 
 const dashboardLinks = [
@@ -16,6 +17,7 @@ export default function UserLayout() {
                 <Outlet />
             </main>
             <Footer />
+            <ChatbotWidget />
         </>
     );
 }

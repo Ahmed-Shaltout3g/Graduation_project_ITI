@@ -6,7 +6,7 @@ import styles from "./Header.module.css";
 
 export default function Header({ links }) {
     const { user, logoutUser, token } = useAuth();
-    const FirstName = localStorage.getItem("FirstName") || (user && user.name);
+    const displayName = user ? (user.first_name || user.username || 'User') : '';
 
     const navLinks = links || [
         { label: "Home", path: "/" },
@@ -50,7 +50,7 @@ export default function Header({ links }) {
                                         Dashboard
                                     </Button>
                                 </Nav.Link>
-                                <span className="text-light me-3">Hello, {FirstName}</span>
+                                <span className="text-light me-3">Hello, {displayName}</span>
                                 <Button variant="outline-info" onClick={logoutUser}>Logout</Button>
                             </>
                         ) : (
