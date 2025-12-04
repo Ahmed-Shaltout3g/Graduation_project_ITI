@@ -26,11 +26,11 @@ const ChatbotWidget = () => {
   const fetchRecommendations = async () => {
     setLoading(true);
     try {
-      const response = await sendMessageToBot("recommendation"); // Trigger backend to send recommendations
+      const response = await sendMessageToBot("recommend tools"); // Trigger backend to send recommendations
       const botMsg = {
         role: "bot",
-        content: response.reply,
-        products: response.products || []
+        content: response.reply || "Here are some recommended tools for you:",
+        products: response.recommendations || []
       };
       setMessages([botMsg]);
     } catch (err) {
@@ -57,7 +57,7 @@ const ChatbotWidget = () => {
       const botMsg = {
         role: "bot",
         content: response.reply,
-        products: response.products || []
+        products: response.recommendations || response.products || []
       };
       setMessages(prev => [...prev, botMsg]);
     } catch (err) {
